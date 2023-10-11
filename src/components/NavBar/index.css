@@ -1,0 +1,11 @@
+.navlink {
+  background: white;
+  width: 100%;
+  text-align: center;
+  padding: 5px;
+  border-radius: 4px;
+}
+.active {
+  background: #2b303a;
+  color: white;
+}
