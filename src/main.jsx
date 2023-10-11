@@ -42,10 +42,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Auth0Provider
-    domain={process.env.VITE_VERCEL_DOMAIN}
-    clientId={process.env.VITE_VERCEL_CLIENTID}
+    domain={import.meta.env.VITE_VERCEL_VERCEL_DOMAIN}
+    clientId={import.meta.env.VITE_VERCEL_CLIENTID}
     authorizationParams={{
-      redirect_uri: process.env.VITE_VERCEL_AUTHORIZATIONPARAMS
+      redirect_uri: import.meta.env.VITE_VERCEL_AUTHORIZATIONPARAMS
     }}>
     <ChakraProvider>
       <React.StrictMode>
