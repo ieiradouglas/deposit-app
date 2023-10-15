@@ -1,0 +1,39 @@
+* {
+}
+
+.table-content {
+  margin: 20px;
+  width: 100%;
+}
+
+.table-header {
+  text-align: left;
+  border: 0px 8px 8px 0px;
+}
+
+.cell-header {
+  padding: 5px;
+  border-bottom: 1px solid black;
+  color: white;
+  background: rgb(99 102 241);
+}
+.cell-header:nth-child(1) {
+  border-radius: 8px 0px 0px 0px;
+}
+.cell-header:nth-child(3) {
+  border-radius: 0px 8px 0px 0px;
+}
+
+.cell-body {
+  padding: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 0.8rem;
+}
+
+.row-body {
+}
+
+.row-body:hover {
+  transform: scale(1.01);
+  background: gray;
+}

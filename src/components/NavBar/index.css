@@ -8,4 +8,6 @@
 .active {
   background: #2b303a;
   color: white;
+  transform: scale(1.04);
+  transition: 2s;
 }

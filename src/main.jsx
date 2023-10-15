@@ -6,8 +6,8 @@ import { Bars } from 'react-loader-spinner'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import Login from './pages/Login'
-import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
+import Produtos from './pages/Produtos'
 
 import { Auth0Provider } from '@auth0/auth0-react'
 
@@ -35,12 +35,12 @@ const router = createBrowserRouter([
     element: <Login />
   },
   {
-    path: '/home',
-    element: <Home />
-  },
-  {
     path: '/dashboard',
     element: <Dashboard />
+  },
+  {
+    path: '/produtos',
+    element: <Produtos />
   }
 ])
 

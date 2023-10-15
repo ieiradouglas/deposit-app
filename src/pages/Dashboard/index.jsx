@@ -1,13 +1,74 @@
+import './index.css'
 import NavBar from '../../components/NavBar'
 import { Bars } from 'react-loader-spinner'
-import { withAuthenticationRequired } from '@auth0/auth0-react'
+import { supabase } from "../../database/supabase"
+import { useState, useEffect } from 'react'
+
+import { withAuthenticationRequired } from "@auth0/auth0-react"
+
+
+const Card = ({ img, alt, titulo, quantidade }) => {
+  return (
+    <div className=" flex-1 background-card flex flex-col items-center justify-center text-center text-white max-w-[280px] p-3 rounded-sm hover:scale-[1.02] duration-150">
+      <img src={img} alt={alt} className="max-w-[60px]" />
+      <h1 className="font-bold tracking-wide">{titulo}</h1>
+      <h3 className="font-bold tracking-wide">{quantidade}</h3>
+    </div>
+  )
+}
+
+
 
 function Dashboard() {
+
+  /* const [produtos, setProdutos] = useState([]) */
+
+  /* useEffect(() => {
+    getProdutos()
+    console.log(produtos)
+  }, [])
+
+  async function getProdutos() {
+    const { data, error } = await supabase
+      .from('produtos')
+      .select('produto_id')
+    setProdutos(data)
+  } */
+
+
   return (
     <NavBar>
-      <h1>Dashboard</h1>
+
+      <main className="flex flex-wrap gap-4 justify-center p-3 mt-8 mobile:mt-2">
+        <Card
+          img="/box.svg"
+          alt="Ícone de caixa"
+          titulo="Produtos"
+          quantidade="52"
+        />
+        <Card
+          img="/avatar.svg"
+          alt="Ícone de caixa"
+          titulo="Usuários"
+          quantidade="32"
+        />
+        <Card
+          img="/categoria.svg"
+          alt="Ícone de caixa"
+          titulo="Categorias"
+          quantidade="76"
+        />
+        <Card
+          img="/fornecedor.svg"
+          alt="Ícone de caixa"
+          titulo="Fornecedores"
+          quantidade="32"
+        />
+      </main >
+
     </NavBar>
   )
+
 }
 
 export default withAuthenticationRequired(Dashboard, {
