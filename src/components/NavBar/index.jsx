@@ -97,7 +97,7 @@ export default function NavBar({ children }) {
           <div className="flex flex-col justify-end items-center gap-4 my-3 ">
             <Avatar name={user.nickname} src={user.picture} />
             <h3 className="text-white text-center">{user.given_name}</h3>
-            <img src="info.svg" className="desktop:hidden" onClick={onOpen} />
+            <img src="info.svg" className="desktop:hidden hover:cursor-pointer hover:scale-[1.02] hover:duration-150" onClick={onOpen} />
             <button className="navlink mobile:hidden" onClick={onOpen}>Meu Perfil</button>
           </div>
 

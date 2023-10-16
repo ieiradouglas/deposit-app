@@ -38,7 +38,7 @@ function Produtos() {
                 <th className="cell-header">Valor</th>
               </tr>
             </thead>
-            <tbody className="table-body">
+            <tbody className="table-body mobile:text-xs">
               {produtos.map((prod) => {
                 return (
                   <tr className="row-body">
