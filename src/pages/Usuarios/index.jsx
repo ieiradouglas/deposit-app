@@ -74,7 +74,7 @@ function Usuarios() {
   async function getUsuarios() {
     const { data, error } = await supabase
       .from('usuarios')
-      .select('*')
+      .select('usuario_id, username, first_name, last_name, email, phone_number')
     setUsuarios(data)
     setLoading(false)
 
