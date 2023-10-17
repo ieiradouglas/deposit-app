@@ -12,28 +12,38 @@
 }
 
 .cell-header {
-  padding: 5px;
+  padding: 10px;
   border-bottom: 1px solid black;
   color: white;
   background: rgb(99 102 241);
 }
+
+@media (max-width: 500px) {
+  .cell-header {
+    padding: 5px;
+  }
+}
+
 .cell-header:nth-child(1) {
   border-radius: 8px 0px 0px 0px;
 }
-.cell-header:nth-child(3) {
+.cell-header:nth-last-child(1) {
   border-radius: 0px 8px 0px 0px;
 }
 
 .cell-body {
-  padding: 5px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  font-size: 0.8rem;
+  padding: 10px;
+  font-size: 0.7rem;
 }
 
 .row-body {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.row-body:nth-child(2n + 1) {
+  background: rgb(0, 0, 0, 0.2);
 }
 
 .row-body:hover {
-  transform: scale(1.01);
-  background: gray;
+  background: rgba(99, 102, 241, 0.8);
 }

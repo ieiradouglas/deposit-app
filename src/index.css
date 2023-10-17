@@ -110,6 +110,7 @@ section {
   display: block;
   font-family: "JetBrains Mono";
   box-sizing: border-box;
+  font-weight: 100;
 }
 body {
   line-height: 1;

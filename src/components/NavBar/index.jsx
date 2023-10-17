@@ -6,18 +6,15 @@ import { NavLink } from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react"
 import { Avatar } from '@chakra-ui/react'
 
+import { ToastContainer } from 'react-toastify';
 
 
 import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Button,
 } from '@chakra-ui/react'
 
 
@@ -92,6 +89,36 @@ export default function NavBar({ children }) {
             <img src="/produto.svg" className="desktop:hidden" />
             <button className="mobile:hidden">Produtos</button>
           </NavLink>
+
+          <NavLink
+            to="/categorias"
+            className={({ isActive }) =>
+              isActive ? "active navlink" : "navlink"
+            }
+          >
+            <img src="/produto.svg" className="desktop:hidden" />
+            <button className="mobile:hidden">Categorias</button>
+          </NavLink>
+
+          <NavLink
+            to="/fornecedores"
+            className={({ isActive }) =>
+              isActive ? "active navlink" : "navlink"
+            }
+          >
+            <img src="/produto.svg" className="desktop:hidden" />
+            <button className="mobile:hidden">Fornecedores</button>
+          </NavLink>
+
+          <NavLink
+            to="/usuarios"
+            className={({ isActive }) =>
+              isActive ? "active navlink" : "navlink"
+            }
+          >
+            <img src="/produto.svg" className="desktop:hidden" />
+            <button className="mobile:hidden">Usuários</button>
+          </NavLink>
         </nav>
         <section className="flex flex-col gap-8 mobile:text-xs">
           <div className="flex flex-col justify-end items-center gap-4 my-3 ">
@@ -107,6 +134,18 @@ export default function NavBar({ children }) {
       <main className="flex-1 overflow-auto">
         {children}
         <ModalPerfil />
+        <ToastContainer
+          position="bottom-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </main>
     </div>
   )

@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 
 import { withAuthenticationRequired } from "@auth0/auth0-react"
 
+import { toast } from 'react-toastify'
 
 const Card = ({ img, alt, titulo, quantidade }) => {
   return (
@@ -21,49 +22,61 @@ const Card = ({ img, alt, titulo, quantidade }) => {
 
 function Dashboard() {
 
-  /* const [produtos, setProdutos] = useState([]) */
+  const [loading, setLoading] = useState(true)
 
-  /* useEffect(() => {
-    getProdutos()
-    console.log(produtos)
+  const [produtos, setProdutos] = useState('')
+  const [usuarios, setUsuarios] = useState('')
+  const [categorias, setCategorias] = useState('')
+  const [fornecedores, setFornecedores] = useState('')
+
+  const notify = (text) => { toast(text) };
+
+  useEffect(() => { //Verificar uso deste hook, pois ele é executado mais de uma vez. 
+    getNumberRows('produtos', setProdutos)
+    getNumberRows('usuarios', setUsuarios)
+    getNumberRows('categorias', setCategorias)
+    getNumberRows('fornecedores', setFornecedores)
   }, [])
 
-  async function getProdutos() {
+  async function getNumberRows(tableName, setName) {
     const { data, error } = await supabase
-      .from('produtos')
-      .select('produto_id')
-    setProdutos(data)
-  } */
+      .from(`${tableName}`)
+      .select('*')
+    setName(data.length)
+    setLoading(false)
 
+  }
 
   return (
     <NavBar>
-
       <main className="flex flex-wrap gap-4 justify-center p-3 mt-8 mobile:mt-2">
-        <Card
-          img="/box.svg"
-          alt="Ícone de caixa"
-          titulo="Produtos"
-          quantidade="52"
-        />
-        <Card
-          img="/avatar.svg"
-          alt="Ícone de caixa"
-          titulo="Usuários"
-          quantidade="32"
-        />
-        <Card
-          img="/categoria.svg"
-          alt="Ícone de caixa"
-          titulo="Categorias"
-          quantidade="76"
-        />
-        <Card
-          img="/fornecedor.svg"
-          alt="Ícone de caixa"
-          titulo="Fornecedores"
-          quantidade="32"
-        />
+        {loading ? <Bars /> :
+          <>
+            <Card
+              img="/box.svg"
+              alt="Ícone de caixa"
+              titulo="Produtos"
+              quantidade={produtos}
+            />
+            <Card
+              img="/avatar.svg"
+              alt="Ícone de caixa"
+              titulo="Usuários"
+              quantidade={usuarios}
+            />
+            <Card
+              img="/categoria.svg"
+              alt="Ícone de caixa"
+              titulo="Categorias"
+              quantidade={categorias}
+            />
+            <Card
+              img="/fornecedor.svg"
+              alt="Ícone de caixa"
+              titulo="Fornecedores"
+              quantidade={fornecedores}
+            />
+          </>}
       </main >
 
     </NavBar>

@@ -8,6 +8,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Produtos from './pages/Produtos'
+import Categorias from './pages/Categorias'
+import Fornecedores from './pages/Fornecedores'
+import Usuarios from './pages/Usuarios'
 
 import { Auth0Provider } from '@auth0/auth0-react'
 
@@ -41,6 +44,18 @@ const router = createBrowserRouter([
   {
     path: '/produtos',
     element: <Produtos />
+  },
+  {
+    path: '/categorias',
+    element: <Categorias />
+  },
+  {
+    path: '/fornecedores',
+    element: <Fornecedores />
+  },
+  {
+    path: '/usuarios',
+    element: <Usuarios />
   }
 ])
 

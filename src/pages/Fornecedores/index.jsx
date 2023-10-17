@@ -1,7 +1,6 @@
 import NavBar from '../../components/NavBar'
 import { Bars } from 'react-loader-spinner'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
-import './index.css'
 
 import { useState, useEffect } from 'react'
 
@@ -30,10 +29,9 @@ import {
 
 
 
+function Fornecedores() {
 
-function Produtos() {
-
-  const [produtos, setProdutos] = useState([])
+  const [fornecedores, setFornecedores] = useState([])
   const [loading, setLoading] = useState(true)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [teste, setTeste] = useState({})
@@ -45,14 +43,14 @@ function Produtos() {
           <ModalOverlay />
           <ModalContent maxWidth={'700px'} maxHeight={'500px'} padding={'30px'} margin={'10px'} className="flex flex-col text-sm gap-2">
             <ModalCloseButton />
-            <div className="flex absolute top-2 left-2 font-bold"><h3>ID:</h3><span>{prod_id.produto_id}</span></div>
-            <div className="flex mt-2 items-start"><h3 className="text-sm font-bold">Nome:</h3><span>{prod_id.nome}</span></div>
-            <div className="flex"><h3 className="text-sm font-bold">Descrição:</h3><span>{prod_id.descricao}</span></div>
-            <div className="flex"><h3 className="text-sm font-bold">Valor:</h3><span>R$ {prod_id.preco}</span></div>
-            <div className="flex"><h3 className="text-sm font-bold">Quantidade:</h3><span>{prod_id.estoque}</span></div>
-            <div className="flex"><h3 className="text-sm font-bold">Categoria:</h3><span>{prod_id.categoria_id}</span></div>
-            <div className="flex"><h3 className="text-sm font-bold">Fornecedor:</h3><span>{prod_id.fornecedor_id}</span></div>
-            <div className="flex"><h3 className="text-sm font-bold">Data do Cadastro:</h3><span>{prod_id.data_adicao}</span></div>
+            <div className="flex absolute top-2 left-2 font-bold"><h3>ID:</h3><span>{prod_id.fornecedor_id}</span></div>
+            <div className="flex mt-2 items-start"><h3 className="text-sm font-bold">Nome:</h3><span>{prod_id.nome_fornecedor}</span></div>
+            <div className="flex mt-2 items-start"><h3 className="text-sm font-bold">Endereço:</h3><span>{prod_id.endereco}</span></div>
+            <div className="flex mt-2 items-start"><h3 className="text-sm font-bold">Bairro:</h3><span>{prod_id.bairro}</span></div>
+            <div className="flex mt-2 items-start"><h3 className="text-sm font-bold">Cidade:</h3><span>{prod_id.cidade}</span></div>
+            <div className="flex mt-2 items-start"><h3 className="text-sm font-bold">Estado:</h3><span>{prod_id.estado}</span></div>
+            <div className="flex mt-2 items-start"><h3 className="text-sm font-bold">Telefone:</h3><span>{prod_id.telefone}</span></div>
+            <div className="flex mt-2 items-start"><h3 className="text-sm font-bold">E-mail:</h3><span>{prod_id.email}</span></div>
           </ModalContent>
         </Modal>
       </>
@@ -72,14 +70,14 @@ function Produtos() {
 
 
   useEffect(() => {
-    getProdutos()
+    getFornecedores()
   }, [])
 
-  async function getProdutos() {
+  async function getFornecedores() {
     const { data, error } = await supabase
-      .from('produtos')
+      .from('fornecedores')
       .select('*')
-    setProdutos(data)
+    setFornecedores(data)
     setLoading(false)
 
     error ? console.log(error.message) : ""
@@ -93,20 +91,22 @@ function Produtos() {
             <thead className="table-header mobile:text-xs">
               <tr className="row-header">
                 <th className="cell-header">ID</th>
-                <th className="cell-header">Produto</th>
-                <th className="cell-header mobile:max-w-[70px]">Quantidade</th>
-                <th className="cell-header">Valor</th>
+                <th className="cell-header">Fornecedor</th>
+                <th className="cell-header">Estado</th>
+                <th className="cell-header">Cidade</th>
+                <th className="cell-header">Bairro</th>
                 <th className="cell-header">Ações</th>
               </tr>
             </thead>
             <tbody className="table-body">
-              {produtos.map((prod) => {
+              {fornecedores.map((prod) => {
                 return (
-                  <tr className="row-body" key={prod.produto_id}>
-                    <td className="cell-body w-[10px] underline">{prod.produto_id}</td>
-                    <td className="cell-body">{prod.nome}</td>
-                    <td className="cell-body">{prod.estoque}</td>
-                    <td className="cell-body w-[100px]">R$ {prod.preco}</td>
+                  <tr className="row-body" key={prod.fornecedor_id}>
+                    <td className="cell-body w-[10px] underline">{prod.fornecedor_id}</td>
+                    <td className="cell-body">{prod.nome_fornecedor}</td>
+                    <td className="cell-body">{prod.estado}</td>
+                    <td className="cell-body">{prod.cidade}</td>
+                    <td className="cell-body">{prod.bairro}</td>
                     <td className="cell-body w-[10px] text-center">{<ActionButton click={() => {
                       setTeste(prod)
                       onOpen()
@@ -123,7 +123,7 @@ function Produtos() {
 
 }
 
-export default withAuthenticationRequired(Produtos, {
+export default withAuthenticationRequired(Fornecedores, {
   onRedirecting: () =>
     <div className="flex justify-center items-center h-screen w-full">
       <Bars
