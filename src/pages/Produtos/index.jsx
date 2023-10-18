@@ -3,7 +3,7 @@ import { Bars } from 'react-loader-spinner'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import './index.css'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext } from 'react'
 
 import { supabase } from '../../database/supabase'
 
@@ -16,7 +16,9 @@ import {
   MenuGroup,
   MenuOptionGroup,
   MenuDivider,
+  ModalFooter,
   Modal,
+  Button,
   ModalOverlay,
   ModalContent,
   ModalCloseButton,
@@ -27,9 +29,7 @@ import {
   HamburgerIcon,
 } from '@chakra-ui/icons'
 
-
-
-
+const ProdutoContext = createContext({})
 
 function Produtos() {
 
@@ -53,7 +53,13 @@ function Produtos() {
             <div className="flex"><h3 className="text-sm font-bold">Categoria:</h3><span>{prod_id.categoria_id}</span></div>
             <div className="flex"><h3 className="text-sm font-bold">Fornecedor:</h3><span>{prod_id.fornecedor_id}</span></div>
             <div className="flex"><h3 className="text-sm font-bold">Data do Cadastro:</h3><span>{prod_id.data_adicao}</span></div>
+            <ModalFooter>
+              <Button colorScheme='red' mr={3} onClick={""}>
+                Excluir+
+              </Button>
+            </ModalFooter>
           </ModalContent>
+
         </Modal>
       </>
     )
@@ -85,39 +91,42 @@ function Produtos() {
     error ? console.log(error.message) : ""
   }
 
+
   return (
     <NavBar>
-      <section className="flex w-full">
-        {loading ? <div className="w-full h-screen flex justify-center items-center"><Bars /></div> :
-          <table className="table-content">
-            <thead className="table-header mobile:text-xs">
-              <tr className="row-header">
-                <th className="cell-header">ID</th>
-                <th className="cell-header">Produto</th>
-                <th className="cell-header mobile:max-w-[70px]">Quantidade</th>
-                <th className="cell-header">Valor</th>
-                <th className="cell-header">Ações</th>
-              </tr>
-            </thead>
-            <tbody className="table-body">
-              {produtos.map((prod) => {
-                return (
-                  <tr className="row-body" key={prod.produto_id}>
-                    <td className="cell-body w-[10px] underline">{prod.produto_id}</td>
-                    <td className="cell-body">{prod.nome}</td>
-                    <td className="cell-body">{prod.estoque}</td>
-                    <td className="cell-body w-[100px]">R$ {prod.preco}</td>
-                    <td className="cell-body w-[10px] text-center">{<ActionButton click={() => {
-                      setTeste(prod)
-                      onOpen()
-                    }} />}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>}
-      </section>
-      <ModalPerfil prod_id={teste} />
+      <ProdutoContext.Provider value={teste}>
+        <section className="flex w-full">
+          {loading ? <div className="w-full h-screen flex justify-center items-center"><Bars /></div> :
+            <table className="table-content">
+              <thead className="table-header mobile:text-xs">
+                <tr className="row-header">
+                  <th className="cell-header">ID</th>
+                  <th className="cell-header">Produto</th>
+                  <th className="cell-header mobile:max-w-[70px]">Quantidade</th>
+                  <th className="cell-header">Valor</th>
+                  <th className="cell-header">Ações</th>
+                </tr>
+              </thead>
+              <tbody className="table-body">
+                {produtos.map((prod) => {
+                  return (
+                    <tr className="row-body" key={prod.produto_id}>
+                      <td className="cell-body w-[10px] underline">{prod.produto_id}</td>
+                      <td className="cell-body">{prod.nome}</td>
+                      <td className="cell-body">{prod.estoque}</td>
+                      <td className="cell-body w-[100px]">R$ {prod.preco}</td>
+                      <td className="cell-body w-[10px] text-center">{<ActionButton click={() => {
+                        setTeste(prod)
+                        onOpen()
+                      }} />}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>}
+        </section>
+        <ModalPerfil prod_id={teste} />
+      </ProdutoContext.Provider>
     </NavBar >
   )
 
