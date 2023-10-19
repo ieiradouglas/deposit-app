@@ -30,7 +30,7 @@ import {
 } from '@chakra-ui/icons'
 
 const ProdutoContext = createContext({})
-
+//teste
 function Produtos() {
 
   const [produtos, setProdutos] = useState([])
