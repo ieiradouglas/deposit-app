@@ -131,7 +131,7 @@ export default function NavBar({ children }) {
           <button className="navlink" onClick={() => logout()}>Sair</button>
         </section>
       </aside>
-      <main className="flex-1 overflow-auto">
+      <main className="flex-1 overflow-auto p-4">
         {children}
         <ModalPerfil />
         <ToastContainer

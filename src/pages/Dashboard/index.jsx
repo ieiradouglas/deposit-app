@@ -1,6 +1,6 @@
 import './index.css'
 import NavBar from '../../components/NavBar'
-import { Bars } from 'react-loader-spinner'
+import { MagnifyingGlass } from 'react-loader-spinner'
 import { supabase } from "../../database/supabase"
 import { useState, useEffect } from 'react'
 
@@ -50,7 +50,7 @@ function Dashboard() {
   return (
     <NavBar>
       <main className="flex flex-wrap gap-4 justify-center p-3 mt-8 mobile:mt-2">
-        {loading ? <Bars /> :
+        {loading ? <MagnifyingGlass /> :
           <>
             <Card
               img="/box.svg"
@@ -87,14 +87,15 @@ function Dashboard() {
 export default withAuthenticationRequired(Dashboard, {
   onRedirecting: () =>
     <div className="flex justify-center items-center h-screen w-full">
-      <Bars
+      <MagnifyingGlass
+        visible={true}
         height="80"
         width="80"
-        color="rgb(99 102 241)"
-        ariaLabel="bars-loading"
+        ariaLabel="MagnifyingGlass-loading"
         wrapperStyle={{}}
-        wrapperClass=""
-        visible={true}
+        wrapperClass="MagnifyingGlass-wrapper"
+        glassColor='#c0efff'
+        color='rgb(99,102,241)'
       />
     </div>
 

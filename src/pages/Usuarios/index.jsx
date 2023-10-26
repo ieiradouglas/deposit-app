@@ -1,5 +1,5 @@
 import NavBar from '../../components/NavBar'
-import { Bars } from 'react-loader-spinner'
+import { MagnifyingGlass } from 'react-loader-spinner'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 
 import { useState, useEffect } from 'react'
@@ -84,7 +84,7 @@ function Usuarios() {
   return (
     <NavBar>
       <section className="flex w-full">
-        {loading ? <div className="w-full h-screen flex justify-center items-center"><Bars /></div> :
+        {loading ? <div className="w-full h-screen flex justify-center items-center"><MagnifyingGlass /></div> :
           <table className="table-content">
             <thead className="table-header mobile:text-xs">
               <tr className="row-header">
@@ -126,14 +126,15 @@ function Usuarios() {
 export default withAuthenticationRequired(Usuarios, {
   onRedirecting: () =>
     <div className="flex justify-center items-center h-screen w-full">
-      <Bars
+      <MagnifyingGlass
+        visible={true}
         height="80"
         width="80"
-        color="rgb(99 102 241)"
-        ariaLabel="bars-loading"
+        ariaLabel="MagnifyingGlass-loading"
         wrapperStyle={{}}
-        wrapperClass=""
-        visible={true}
+        wrapperClass="MagnifyingGlass-wrapper"
+        glassColor='#c0efff'
+        color='rgb(99,102,241)'
       />
     </div>
 

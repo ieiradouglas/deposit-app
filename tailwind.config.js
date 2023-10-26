@@ -10,7 +10,12 @@ export default {
       'mobile': { 'max': '500px' },
       'desktop': { 'min': '500px' }
     },
-    extend: {},
+    extend: {
+      colors: {
+        'roxo': "rgb(99,102,241)",
+        'verde': "#70e000",
+      }
+    },
   },
   plugins: [],
 }

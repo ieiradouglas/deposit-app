@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Produtos from './pages/Produtos'
+import CadastroProduto from './pages/CadastroProduto'
 import Categorias from './pages/Categorias'
 import Fornecedores from './pages/Fornecedores'
 import Usuarios from './pages/Usuarios'
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: '/produtos',
     element: <Produtos />
+  },
+  {
+    path: '/cadastro-produtos',
+    element: <CadastroProduto />
   },
   {
     path: '/categorias',
