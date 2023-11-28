@@ -8,7 +8,7 @@ export default {
     },
     screens: {
       'mobile': { 'max': '500px' },
-      'desktop': { 'min': '500px' }
+      'desktop': { 'min': '501px' }
     },
     extend: {
       colors: {

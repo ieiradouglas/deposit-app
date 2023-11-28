@@ -65,8 +65,8 @@ export default function NavBar({ children }) {
     <div className="flex h-screen">
       <aside className="flex flex-1 flex-col max-w-[180px] gap-3 bg-indigo-500 p-3 mobile:max-w-[70px]">
         <div className="flex flex-col gap-3 items-center">
-          <img className="w-[80px] h-[80px] mobile:w-[30px] mobile:h-[30px]" src={logoDeposit} />
-          <h1 className="uppercase font-extrabold text-center text-2xl mobile:text-xs">Deposit</h1>
+          <img className="w-[80px] h-[80px] mobile:w-[50px] mobile:h-[50px]" src={logoDeposit} />
+          <h1 className="uppercase font-extrabold text-center text-2xl mobile:text-xs mobile:hidden">Deposit</h1>
         </div>
         <nav className="flex flex-col h-full w-full items-center gap-2">
 
@@ -96,7 +96,7 @@ export default function NavBar({ children }) {
               isActive ? "active navlink" : "navlink"
             }
           >
-            <img src="/produto.svg" className="desktop:hidden" />
+            <img src="/categoria.svg" className="desktop:hidden" />
             <button className="mobile:hidden">Categorias</button>
           </NavLink>
 
@@ -106,7 +106,7 @@ export default function NavBar({ children }) {
               isActive ? "active navlink" : "navlink"
             }
           >
-            <img src="/produto.svg" className="desktop:hidden" />
+            <img src="/fornecedor.svg" className="desktop:hidden" />
             <button className="mobile:hidden">Fornecedores</button>
           </NavLink>
 
@@ -116,7 +116,7 @@ export default function NavBar({ children }) {
               isActive ? "active navlink" : "navlink"
             }
           >
-            <img src="/produto.svg" className="desktop:hidden" />
+            <img src="/avatar.svg" className="desktop:hidden" />
             <button className="mobile:hidden">Usuários</button>
           </NavLink>
         </nav>
