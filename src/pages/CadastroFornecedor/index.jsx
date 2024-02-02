@@ -10,7 +10,6 @@ import { useState } from "react";
 
 function CadastroProduto() {
   const [categorias, setCategorias] = useState([]);
-  const [fornecedores, setFornecedores] = useState([]);
   const [produto, setProduto] = useState({});
 
   const handleChange = (e) => {
