@@ -13,6 +13,7 @@ import Fornecedores from "./pages/Fornecedores";
 import Usuarios from "./pages/Usuarios";
 import CadastroProduto from "./pages/CadastroProduto";
 import CadastroCategoria from "./pages/CadastroCategoria";
+import CadastroFornecedor from "./pages/CadastroFornecedor";
 
 import { Auth0Provider } from "@auth0/auth0-react";
 
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
   {
     path: "/cadastro-categorias",
     element: <CadastroCategoria />,
+  },
+  {
+    path: "/cadastro-fornecedores",
+    element: <CadastroFornecedor />,
   },
 ]);
 

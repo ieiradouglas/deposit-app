@@ -117,11 +117,24 @@ function Produtos() {
   }
 
   useEffect(() => {
-    getProdutos("");
+    getProdutos();
   }, []);
 
   async function getProdutos(text) {
-    if (campoBuscaProduto != "" || campoBuscaProduto != " ") {
+    if (campoBuscaProduto == false) {
+      const { data, error } = await supabase.from("produtos").select("*");
+      setProdutos(data);
+      setLoading(false);
+    } else {
+      const { data, error } = await supabase
+        .from("produtos")
+        .select("*")
+        .ilike("nome", `%${text}%`);
+      setProdutos(data);
+      setLoading(false);
+    }
+
+    /* if (campoBuscaProduto != "" || campoBuscaProduto != " ") {
       const { data, error } = await supabase
         .from("produtos")
         .select("*")
@@ -136,7 +149,7 @@ function Produtos() {
       setLoading(false);
 
       error ? console.log(error.message) : "teste";
-    }
+    } */
   }
 
   async function deleteProdutos(campo) {
@@ -174,11 +187,12 @@ function Produtos() {
               </button>
             </NavLink>
             <div>
+              {campoBuscaProduto ? console.log("true") : console.log("false")}
               <input
                 onChange={(e) => {
                   setCampoBuscaProduto(e.target.value);
                 }}
-                onKeyDown={() => getProdutos(campoBuscaProduto)}
+                onKeyUp={() => getProdutos(campoBuscaProduto)}
                 placeholder="Buscar produto..."
                 className=" p-2 rounded-md border border-gray-950 text-black"
               />

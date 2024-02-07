@@ -8,41 +8,29 @@ import { supabase } from "../../database/supabase";
 
 import { useState } from "react";
 
-function CadastroProduto() {
-  const [categorias, setCategorias] = useState([]);
-  const [produto, setProduto] = useState({});
+function CadastroFornecedor() {
+  const [fornecedor, setFornecedor] = useState({});
 
   const handleChange = (e) => {
     // cria um objeto com o nome do campo "INPUT" com o valor do INPUT.
-    setProduto((prevState) => ({
+    setFornecedor((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  async function getOptions(tabela) {
-    const { data } = await supabase.from(`${tabela}`).select("*");
-
-    if (tabela == "categorias") {
-      setCategorias(data);
-    }
-    if (tabela == "fornecedores") {
-      setFornecedores(data);
-    }
-  }
-
-  async function inserirProduto() {
+  async function inserirFornecedor() {
     const { data, error } = await supabase
-      .from("produtos")
+      .from("fornecedores")
       .insert([
         {
-          nome: produto.nome_produto,
-          descricao: produto.descricao,
-          preco: produto.valor_produto,
-          estoque: produto.quantidade,
-          fornecedor_id: produto.fornecedor,
-          data_adicao: produto.data_entrada,
-          categoria_id: produto.categoria_produto,
+          nome_fornecedor: fornecedor.nome_fornecedor,
+          endereco: fornecedor.endereco,
+          bairro: fornecedor.bairro,
+          cidade: fornecedor.cidade,
+          estado: fornecedor.estado,
+          telefone: fornecedor.telefone,
+          email: fornecedor.email,
         },
       ])
       .select();
@@ -50,116 +38,84 @@ function CadastroProduto() {
     if (error) {
       console.log(error.message);
     }
-    console.log(produto);
   }
 
   return (
     <NavBar>
+      {console.log(fornecedor)}
       <form className="background w-full flex flex-wrap">
         <div className="flex flex-wrap m-5 w-full justify-center gap-10">
           <fieldset>
-            <legend>Nome do Produto</legend>
+            <legend>Nome do Fornecedor</legend>
             <Input
               type="text"
               placeholder="Nome do Produto"
               className="border border-black p-2 rounded-sm"
-              name="nome_produto"
+              name="fornecedor_nome"
               onChange={(e) => {
                 handleChange(e);
               }}
             />
           </fieldset>
-          <fieldset>
-            <legend>Descrição</legend>
+          <fieldset className="w-full max-w-[450px]">
+            <legend>Endereço</legend>
             <Input
               type="text"
-              placeholder="Descrição"
-              className="border border-black p-2 rounded-sm"
-              name="descricao"
+              placeholder="Endereço"
+              className="border border-black p-2 rounded-sm w-full max-w-[450px]"
+              name="fornecedor_endereco"
               onChange={(e) => {
                 handleChange(e);
               }}
             />
-          </fieldset>
-          <fieldset>
-            <legend>Categoria do Produto</legend>
-            <Select
-              name="categoria_produto"
-              onClick={() => getOptions("categorias")}
-              onChange={(e) => {
-                setProduto((prevState) => ({
-                  ...prevState,
-                  [e.target.name]: e.target.selectedIndex + 1,
-                }));
-              }}
-            >
-              {categorias.map((cat) => {
-                return (
-                  <option key={cat.categoria_id} value={cat.nome_categoria}>
-                    {cat.nome_categoria}
-                  </option>
-                );
-              })}
-            </Select>
           </fieldset>
         </div>
 
         <div className="flex flex-wrap  m-5 w-full justify-center gap-10">
           <fieldset>
-            <legend>Valor do Produto</legend>
+            <legend>Bairro</legend>
             <Input
-              type="number"
-              placeholder="Valor do produto"
+              type="text"
+              placeholder="Bairro"
               className="border border-black p-2 rounded-sm"
-              name="valor_produto"
+              name="fornecedor_bairro"
               onChange={(e) => {
                 handleChange(e);
               }}
             />
           </fieldset>
           <fieldset>
-            <legend>Quantidade</legend>
+            <legend>Estado</legend>
             <Input
-              type="number"
-              placeholder="Quantidade"
+              type="text"
+              placeholder="Estado"
               className="border border-black p-2 rounded-sm"
-              name="quantidade"
+              name="fornecedor_estado"
               onChange={(e) => {
                 handleChange(e);
               }}
             />
           </fieldset>
+
           <fieldset>
-            <legend>Fornecedor</legend>
-            <Select
-              name="fornecedor"
-              onClick={() => getOptions("fornecedores")}
-              onChange={(e) => {
-                setProduto((prevState) => ({
-                  ...prevState,
-                  [e.target.name]: e.target.selectedIndex + 1,
-                }));
-              }}
-            >
-              {fornecedores.map((forne) => {
-                return (
-                  <option
-                    key={forne.fornecedor_id}
-                    value={forne.nome_fornecedor}
-                  >
-                    {forne.nome_fornecedor}
-                  </option>
-                );
-              })}
-            </Select>
-          </fieldset>
-          <fieldset>
-            <legend>Data de Entrada</legend>
+            <legend>Telefone</legend>
             <Input
-              type="date"
-              placeholder="Data de Cadastro"
+              type="tel"
+              placeholder="Telefone"
               className="border border-black p-2 rounded-sm w-[199px]"
-              name="data_entrada"
+              name="fornecedor_telefone"
+              onChange={(e) => {
+                handleChange(e);
+              }}
+            />
+          </fieldset>
+          <fieldset>
+            <legend>E-mail</legend>
+            <Input
+              type="email"
+              placeholder="E-mail"
+              className="border border-black p-2 rounded-sm w-[199px]"
+              name="fornecedor_email"
               onChange={(e) => {
                 handleChange(e);
               }}
@@ -171,10 +127,10 @@ function CadastroProduto() {
             className="w-[200px] bg-roxo rounded-sm p-3"
             onClick={(e) => {
               e.preventDefault();
-              inserirProduto();
+              inserirFornecedor();
             }}
           >
-            Cadastrar Produto
+            Cadastrar Fornecedor
           </button>
         </div>
       </form>
@@ -182,7 +138,7 @@ function CadastroProduto() {
   );
 }
 
-export default withAuthenticationRequired(CadastroProduto, {
+export default withAuthenticationRequired(CadastroFornecedor, {
   onRedirecting: () => (
     <div className="flex justify-center items-center h-screen w-full">
       <MagnifyingGlass

@@ -94,7 +94,19 @@ function Categorias() {
   }, []);
 
   async function getCategorias(text) {
-    if (campoBuscaProduto != "" || campoBuscaProduto != " ") {
+    if (campoBuscaProduto == false) {
+      const { data, error } = await supabase.from("categorias").select("*");
+      setCategorias(data);
+      setLoading(false);
+    } else {
+      const { data, error } = await supabase
+        .from("categorias")
+        .select("*")
+        .ilike("nome_categoria", `%${text}%`);
+      setCategorias(data);
+      setLoading(false);
+    }
+    /* if (campoBuscaProduto != "" || campoBuscaProduto != " ") {
       const { data, error } = await supabase
         .from("categorias")
         .select("*")
@@ -109,7 +121,7 @@ function Categorias() {
       setLoading(false);
 
       error ? console.log(error.message) : "teste";
-    }
+    } */
   }
 
   async function deleteProdutos(campo) {
@@ -147,7 +159,7 @@ function Categorias() {
               onChange={(e) => {
                 setCampoBuscaProduto(e.target.value);
               }}
-              onKeyDown={() => getCategorias(campoBuscaProduto)}
+              onKeyUp={() => getCategorias(campoBuscaProduto)}
               placeholder="Buscar produto..."
               className=" p-2 rounded-md border border-gray-950 text-black"
             />
