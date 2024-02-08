@@ -36,6 +36,9 @@ function CadastroProduto() {
 
   return (
     <NavBar>
+      <h1 className="text-center font-extrabold text-3xl uppercase font-sans">
+        Cadastro de categoria
+      </h1>
       <form className="background w-full flex flex-wrap">
         <div className="flex flex-wrap m-5 w-full justify-center gap-10">
           <fieldset>
@@ -54,7 +57,7 @@ function CadastroProduto() {
 
         <div className="w-full flex justify-center mt-4">
           <button
-            className="w-[200px] bg-roxo rounded-sm p-3"
+            className="w-[200px] bg-roxo rounded-sm p-3 text-white"
             onClick={(e) => {
               e.preventDefault();
               inserirCategoria();

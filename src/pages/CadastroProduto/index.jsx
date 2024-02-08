@@ -4,6 +4,8 @@ import NavBar from "../../components/NavBar";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 
+import { IMaskInput } from "react-imask";
+
 import { supabase } from "../../database/supabase";
 
 import { useState } from "react";
@@ -56,13 +58,16 @@ function CadastroProduto() {
 
   return (
     <NavBar>
+      <h1 className="text-center font-extrabold text-3xl uppercase font-sans">
+        Cadastro de produto
+      </h1>
       <form className="background w-full flex flex-wrap">
         <div className="flex flex-wrap m-5 w-full justify-center gap-10">
           <fieldset>
             <legend>Nome do Produto</legend>
             <Input
               type="text"
-              placeholder="Nome do Produto"
+              placeholder="Bola de Futebol"
               className="border border-black p-2 rounded-sm"
               name="nome_produto"
               onChange={(e) => {
@@ -74,7 +79,7 @@ function CadastroProduto() {
             <legend>Descrição</legend>
             <Input
               type="text"
-              placeholder="Descrição"
+              placeholder="Uma bola para jogar futebol com os amigos"
               className="border border-black p-2 rounded-sm"
               name="descricao"
               onChange={(e) => {
@@ -110,7 +115,7 @@ function CadastroProduto() {
             <legend>Valor do Produto</legend>
             <Input
               type="number"
-              placeholder="Valor do produto"
+              placeholder="Ex: 199,30"
               className="border border-black p-2 rounded-sm"
               name="valor_produto"
               onChange={(e) => {
@@ -122,7 +127,7 @@ function CadastroProduto() {
             <legend>Quantidade</legend>
             <Input
               type="number"
-              placeholder="Quantidade"
+              placeholder="30"
               className="border border-black p-2 rounded-sm"
               name="quantidade"
               onChange={(e) => {
@@ -169,7 +174,7 @@ function CadastroProduto() {
         </div>
         <div className="w-full flex justify-center mt-4">
           <button
-            className="w-[200px] bg-roxo rounded-sm p-3"
+            className="w-[200px] bg-roxo rounded-sm p-3 text-white"
             onClick={(e) => {
               e.preventDefault();
               inserirProduto();

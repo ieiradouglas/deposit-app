@@ -4,12 +4,17 @@ import NavBar from "../../components/NavBar";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 
+import { IMaskInput } from "react-imask";
+
 import { supabase } from "../../database/supabase";
 
 import { useState } from "react";
 
 function CadastroFornecedor() {
   const [fornecedor, setFornecedor] = useState({});
+  const [estado, setEstado] = useState();
+  const [estados, setEstados] = useState([]);
+  const [cidades, setCidades] = useState([]);
 
   const handleChange = (e) => {
     // cria um objeto com o nome do campo "INPUT" com o valor do INPUT.
@@ -28,7 +33,7 @@ function CadastroFornecedor() {
           endereco: fornecedor.endereco,
           bairro: fornecedor.bairro,
           cidade: fornecedor.cidade,
-          estado: fornecedor.estado,
+          estado: fornecedor.fornecedor_estado,
           telefone: fornecedor.telefone,
           email: fornecedor.email,
         },
@@ -40,17 +45,36 @@ function CadastroFornecedor() {
     }
   }
 
+  async function buscaEstado() {
+    fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+      .then((response) => response.json())
+      .then((data) => {
+        setEstados(data);
+      });
+  }
+
+  async function buscaCidade(uf) {
+    fetch(
+      `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`
+    )
+      .then((response) => response.json())
+      .then((data) => setCidades(data));
+  }
+
   return (
     <NavBar>
-      {console.log(fornecedor)}
+      <h1 className="text-center font-extrabold text-3xl uppercase font-sans">
+        Cadastro de fornecedor
+      </h1>
+      <IMaskInput mask="000.000.000-00" placeholder="Digite o seu CPF" />
       <form className="background w-full flex flex-wrap">
-        <div className="flex flex-wrap m-5 w-full justify-center gap-10">
-          <fieldset>
+        <div className="flex flex-col flex-wrap m-5 w-full justify-center items-center gap-10">
+          <fieldset className="w-full max-w-[450px]">
             <legend>Nome do Fornecedor</legend>
             <Input
               type="text"
-              placeholder="Nome do Produto"
-              className="border border-black p-2 rounded-sm"
+              placeholder="Castro Distribuidora"
+              className="border border-black p-2 rounded-sm w-full max-w-[450px]"
               name="fornecedor_nome"
               onChange={(e) => {
                 handleChange(e);
@@ -61,7 +85,7 @@ function CadastroFornecedor() {
             <legend>Endereço</legend>
             <Input
               type="text"
-              placeholder="Endereço"
+              placeholder="Rua das flores..."
               className="border border-black p-2 rounded-sm w-full max-w-[450px]"
               name="fornecedor_endereco"
               onChange={(e) => {
@@ -69,53 +93,82 @@ function CadastroFornecedor() {
               }}
             />
           </fieldset>
-        </div>
-
-        <div className="flex flex-wrap  m-5 w-full justify-center gap-10">
-          <fieldset>
-            <legend>Bairro</legend>
+          <fieldset className="w-full max-w-[450px]">
+            <legend>E-mail</legend>
             <Input
-              type="text"
-              placeholder="Bairro"
-              className="border border-black p-2 rounded-sm"
-              name="fornecedor_bairro"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-            />
-          </fieldset>
-          <fieldset>
-            <legend>Estado</legend>
-            <Input
-              type="text"
-              placeholder="Estado"
-              className="border border-black p-2 rounded-sm"
-              name="fornecedor_estado"
+              type="email"
+              placeholder="exemplo@email.com"
+              className="border border-black p-2 rounded-sm w-full max-w-[450px]"
+              name="fornecedor_email"
               onChange={(e) => {
                 handleChange(e);
               }}
             />
           </fieldset>
 
+          <div className="flex flex-wrap gap-10 w-full max-w-[450px]">
+            <fieldset>
+              <legend>Estado</legend>
+              <Select
+                name="fornecedor_estado"
+                onClick={() => {
+                  buscaEstado();
+                }}
+                onChange={(e) => {
+                  setFornecedor((prevState) => ({
+                    ...prevState,
+                    [e.target.name]: e.target.selectedIndex + 1,
+                  }));
+                  buscaCidade(e.target.value);
+                }}
+              >
+                {estados.map((uf) => {
+                  return (
+                    <option key={uf.id} value={uf.id}>
+                      {uf.nome}
+                    </option>
+                  );
+                })}
+              </Select>
+            </fieldset>
+            <fieldset>
+              <legend>Cidade</legend>
+              <Select
+                name="fornecedor_cidade"
+                onClick={() => {}}
+                onChange={(e) => {
+                  setFornecedor((prevState) => ({
+                    ...prevState,
+                    [e.target.name]: e.target.selectedIndex + 1,
+                  }));
+                }}
+              >
+                {cidades.map((cd) => {
+                  return (
+                    <option key={cd.id} value={cd.nome}>
+                      {cd.nome}
+                    </option>
+                  );
+                })}
+              </Select>
+            </fieldset>
+          </div>
           <fieldset>
             <legend>Telefone</legend>
-            <Input
+            {/* <Input
               type="tel"
-              placeholder="Telefone"
-              className="border border-black p-2 rounded-sm w-[199px]"
+              placeholder="(99) 9 9999-9999"
+              className="border border-black p-2 rounded-sm "
               name="fornecedor_telefone"
               onChange={(e) => {
                 handleChange(e);
               }}
-            />
-          </fieldset>
-          <fieldset>
-            <legend>E-mail</legend>
-            <Input
-              type="email"
-              placeholder="E-mail"
-              className="border border-black p-2 rounded-sm w-[199px]"
-              name="fornecedor_email"
+            /> */}
+            <IMaskInput
+              mask="(00) 0 0000-0000"
+              placeholder="Digite o seu telefone..."
+              className="border border-black p-2 rounded-sm "
+              name="fornecedor_telefone"
               onChange={(e) => {
                 handleChange(e);
               }}
@@ -124,10 +177,11 @@ function CadastroFornecedor() {
         </div>
         <div className="w-full flex justify-center mt-4">
           <button
-            className="w-[200px] bg-roxo rounded-sm p-3"
+            className="w-[200px] bg-roxo rounded-sm p-3 text-white"
             onClick={(e) => {
               e.preventDefault();
-              inserirFornecedor();
+              /* inserirFornecedor(); */
+              console.log(fornecedor);
             }}
           >
             Cadastrar Fornecedor
